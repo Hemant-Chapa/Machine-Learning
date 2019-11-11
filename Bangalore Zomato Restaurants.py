@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 
 zomato_data = pd.read_csv("C:\\Users\\Hemant\\Documents\\Python Scripts\\Practise\\zomato-bangalore-restaurants\\zomato.csv")
 
-print(zomato_data.columns)
+#print(zomato_data.columns)
 
 
 import seaborn as sns
@@ -19,7 +19,7 @@ import seaborn as sns
 df = zomato_data
 
 chains = df['name'].value_counts()[:20] # counts of chains of  a restaurant order by number of branches
-print(chains)
+#print(chains)
 
 """
 Top Restaurant chains in Bangalore
@@ -43,7 +43,7 @@ labels = ["Accept Online Orders", "Do not accept online orders"]
 sizes = [ df['online_order'].value_counts()[0], df['online_order'].value_counts()[1]]
 sizes/sum(sizes)
 
-
+plt.figure(figsize = (10,10))
 plt.pie(X.values, labels = X.index, autopct = '%.1f%%' , startangle=90)
 
 """
@@ -122,9 +122,18 @@ rate_reviews.rename(columns = {'rate_pass4':'rate_processed'}, inplace = True)
 df = pd.concat([df,rate_reviews['rate_processed']],axis = 1, sort = False)
 
 
+"""
+Retaurants with Maximum Ratings
+"""
 
+rest_ratings = df["rate_processed"].value_counts().sort_index()
 
-    
+#rest_ratings.index.astype(str, copy=False)
+labels_str = rest_ratings.index.astype(str, copy=False)
+
+plt.figure(figsize = (20,15))
+sns.barplot(labels_str,rest_ratings,palette='deep')
+  
     
     
     
